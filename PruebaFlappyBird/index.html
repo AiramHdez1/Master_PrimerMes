@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+          <meta charset="utf-8">  
+		  <style>
+				body,html{margin:auto;padding:0px;overflow:hidden;}
+					.control{
+	
+						width:300px;
+						height:300px;
+						background:green;
+						opacity:0.0;
+						position:absolute;
+		
+					}
+				#izquierda{left:0%;top:0%;width:49%;height:100%;}
+				#derecha{right:0%;top:0%;width:49%;height:100%;}
+		  
+		  </style>
+	</head>
+    <body>
+		<canvas id="canvas">"canvas" No es soportado por su navegador
+		
+			
+		
+		</canvas>
+		<div id ="izquierda" class = "control"></div>
+		<div id ="derecha" class = "control"></div>
+		<audio id = "musica" src ="musica/batalla.mp3" ></audio>
+		<audio id = "musicaInicio" src ="musica/Inicio.wav"></audio>
+		<audio id = "musicaFin" src ="musica/Final.mp3"></audio>
+		<div id="contieneaudio"></div>
+    </body>
+	<script src="jquery-3.1.1.min.js"></script>
+	<script src="js/condicionesiniciales.js"></script>
+	<script src="js/juego.js"></script>
+</html>
