@@ -1,5 +1,3 @@
-//Hola esto es un cambio de enigsa
-
 $(document).ready(function(){
 
 //https://wav.hya.io/#/fx/amplify					editor de audio online
@@ -82,7 +80,8 @@ function Final(){
 	contexto.fillText(tituloTexto,textoPosX,textoPosY-75);
 	contexto.font = "bold 30px Courier";  
 	contexto.fillStyle="black";
-	PuntosTexto ="Puntos: "+ puntuacion;  
+	PuntosTotal = Math.round(puntuacion * cuentaMonedas);
+	PuntosTexto ="Puntuacion total: "+ PuntosTotal;  
 	contexto.fillText(PuntosTexto,textoPosX,textoPosY-15);
 	contexto.font = "bold 20px Courier";  
 	InicialTexto ="Pulsa para reiniciar";  
@@ -92,7 +91,7 @@ function Final(){
   
 function PintaPuntos(){
 	contexto.save();
-	PuntosTexto = "Puntos:"+puntuacion;
+	PuntosTexto = "Puntos:"+puntuacion +" Monedas:"+cuentaMonedas;
 	contexto.font ="bold 30px Courier";
 	contexto.fillStyle = "white";
 	contexto.textAlign ="center";
@@ -203,15 +202,32 @@ function PintaObstaculos(){
 		if(obstaculo[i].pinta){
 			contexto.fillStyle = "#8D410E";
 			contexto.fillRect(obstaculo[i].posX, obstaculo[i].posY,obstaculo[i].width,obstaculo[i].height-huecosDanio);
+
+			//Pinta lineas
+			for(var j = 0; j < 6;j++){
+				contexto.strokeStyle = "black";
+				contexto.beginPath();
+				contexto.lineWidth = 3;
+				contexto.moveTo(obstaculo[i].posX,obstaculo[i].posY+20);
+				contexto.lineTo(obstaculo[i].posX+20, obstaculo[i].posY+20);
+				contexto.closePath();
+				contexto.stroke();
+			}
+			contexto.lineWidth = 2;
 			contexto.strokeStyle = "black";
 			contexto.strokeRect(obstaculo[i].posX, obstaculo[i].posY,obstaculo[i].width,obstaculo[i].height-huecosDanio);
 		}       
 	}
 	for(var i = 0; i < moneda.length; i++){
 		if(moneda[i].pinta){
-			contexto.fillStyle = "yellow";
+			contexto.fillStyle = "#E7AE18";
 			contexto.beginPath();
 			contexto.arc(moneda[i].posX,moneda[i].posY,6.5,0,Math.PI*2,true);
+            contexto.closePath();
+			contexto.fill();
+			contexto.fillStyle = "gray";
+			contexto.beginPath();
+			contexto.arc(moneda[i].posX,moneda[i].posY,4,0,Math.PI*2,true);
             contexto.closePath();
 			contexto.fill();
 			//contexto.fillRect(moneda[i].posX,moneda[i].posY,moneda[i].width,moneda[i].height);
@@ -224,9 +240,7 @@ function PintaObstaculos(){
 function ContarPuntos(){
 	for(var i = 0; i < obstaculo.length; i++){
 		if(obstaculo[i].posX + obstaculo[i].width < jugador.posX && obstaculo[i].contador){
-			var rndm = Math.ceil(Math.random()*2);
-			//console.log(rndm)
-			$("#contieneaudio").append('<audio id = "musicaPuntos" src ="musica/puntos'+rndm+'.wav" autoplay volume = "0.3"></audio>')
+			$("#contieneaudio").append('<audio id = "musicaPuntos" src ="musica/puntos2.wav" autoplay volume = "0.3"></audio>')
 			setTimeout(function(){$("#contieneaudio").html("");},500)
 			puntuacion++;
 			if(velocidadJuego < 100){velocidadJuego +=0.2;}
@@ -305,9 +319,12 @@ function recogeMoneda(){
 			jugador.posX < moneda[i].posX + moneda[i].width && 
 			jugador.posY < moneda[i].posY + moneda[i].height && 
 			jugador.posY + jugador.height > moneda[i].posY){
+			var rndm = Math.ceil(Math.random()*2);
+			//console.log(rndm)
+			$("#contieneaudio").append('<audio id = "musicaPuntos" src ="musica/puntos1.wav" autoplay volume = "0.3"></audio>');
 				//console.log("recoge modena");
 				cuentaMonedas++;
-				console.log(cuentaMonedas);
+				//console.log(cuentaMonedas);
 				moneda[i].pinta = false;
 		}
 	}

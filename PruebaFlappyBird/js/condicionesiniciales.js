@@ -50,6 +50,7 @@ var PuntosTexto = "";
 var InicialTexto = "";
 var tituloTexto = "";
 var SaltoText = "";
+var PuntosTotal = 0;
 var musicaFondo = document.getElementById("musica");
 var musicaInicial = document.getElementById("musicaInicio");
 var musicaFinal = document.getElementById("musicaFin");
